@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
-function App() {
+function Axios() {
    const [hello, setHello] = useState('')
 
     useEffect(() => {
@@ -16,4 +16,4 @@ function App() {
         </div>
     );
 }
-export default App;
+export default Axios;
