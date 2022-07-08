@@ -6,5 +6,5 @@ import java.util.List;
 public interface MainService {
   public int getCount();
 
-  public List<HashMap<String, Object>> getBoardData();
+  public List<HashMap<String, Object>> getBoardData(String searchKey);
 }

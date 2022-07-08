@@ -10,5 +10,5 @@ import java.util.List;
 public interface MainMapper {
   public int getCount();
 
-  public List<HashMap<String, Object>> getBoardData();
+  public List<HashMap<String, Object>> getBoardData(String searchKey);
 }

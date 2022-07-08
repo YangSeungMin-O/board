@@ -26,7 +26,7 @@ public class MainController {
   @GetMapping("/api/boardData")
   public List<HashMap<String, Object>> boardData(String searchKey) {
 
-    List<HashMap<String, Object>> boardData = service.getBoardData();
+    List<HashMap<String, Object>> boardData = service.getBoardData(searchKey);
     System.out.println(boardData);
 
     return boardData;

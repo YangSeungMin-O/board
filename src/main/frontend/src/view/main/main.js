@@ -4,15 +4,21 @@ import * as main2 from "./main2"
 
 export default function Main() {
     const [list, setList] = useState([]);
+    const [searchKey, setSearchKey] = useState([]);
+
+    const onChange = (event) => {
+      setSearchKey(event.target.value);
+    }
 
     useEffect(() => {
       getData();
     }, []);
 
-    function getData() {
+    function getData(searchKey) {
+    console.log(searchKey);
       const url = "/api/boardData";
       const result = [];
-      axios.get(url, {params : {searchKey: "검색어"}})
+      axios.get(url, {params : {searchKey: searchKey}})
       .then(function(response) {
         console.log("성공");
         const {data} = response;
@@ -27,12 +33,13 @@ export default function Main() {
 
    function searchData() {
       console.log("검색 시행");
+      getData(searchKey)
    }
 
   return (
     <div>
       <h1>Board Main</h1>
-      <input type="text" placeholder="검색어를 입력하세요" />
+      <input type="text" placeholder="검색어를 입력하세요" onChange={onChange}/>
       <button type="button" onClick={searchData}>검색</button>
       <table border="1">
         <thead>

@@ -17,7 +17,7 @@ public class MainServiceImpl implements MainService {
   }
 
   @Override
-  public List<HashMap<String, Object>> getBoardData() {
-    return mapper.getBoardData();
+  public List<HashMap<String, Object>> getBoardData(String searchKey) {
+    return mapper.getBoardData(searchKey);
   }
 }
