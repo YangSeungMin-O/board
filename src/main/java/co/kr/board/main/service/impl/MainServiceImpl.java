@@ -17,7 +17,12 @@ public class MainServiceImpl implements MainService {
   }
 
   @Override
-  public List<HashMap<String, Object>> getBoardData(String searchKey) {
-    return mapper.getBoardData(searchKey);
+  public List<HashMap<String, Object>> getBoardData(String searchKey, int page) {
+    return mapper.getBoardData(searchKey, page);
+  }
+
+  @Override
+  public int getBoardDataCnt(String searchKey) {
+    return mapper.getBoardDataCnt(searchKey);
   }
 }

@@ -4,6 +4,7 @@ import co.kr.board.main.service.MainService;
 import co.kr.board.main.service.impl.MainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,11 +25,14 @@ public class MainController {
   }
 
   @GetMapping("/api/boardData")
-  public List<HashMap<String, Object>> boardData(String searchKey) {
-
-    List<HashMap<String, Object>> boardData = service.getBoardData(searchKey);
-    System.out.println(boardData);
-
+  public List<HashMap<String, Object>> boardData(String searchKey, int page) {
+    page = (page-1)*10;
+    List<HashMap<String, Object>> boardData = service.getBoardData(searchKey, page);
     return boardData;
+  }
+  @GetMapping("/api/boardDataCnt")
+  public int boardDataCnt(String searchKey) {
+    int boardDataCnt = service.getBoardDataCnt(searchKey);
+    return boardDataCnt;
   }
 }
