@@ -15,7 +15,7 @@
     limit 10 offset #{page}
   </select>
 
-  <select id="getBoardDataCnt" resultType="int">
+  <select id="getTotalPage" resultType="int">
     select count(*) from tb_board
     where 1=1
     <if test="searchKey != null and searchKey != ''">

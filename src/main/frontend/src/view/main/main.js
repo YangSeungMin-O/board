@@ -4,43 +4,63 @@ import axios from "axios";
 
 export default function Main() {
 /* JS ---------------------------------------------------------------- */
-  const [list, setList] = useState([]);
+  const [totalPage, setTotalPage] = useState([]);
   const [page, setPage] = useState(1);
+  const pageChange = (event) => {
+    setPage(event.target.text);
+  }
+  const [list, setList] = useState([]);
   const [searchKey, setSearchKey] = useState("");
   const searchKeyChange = (event) => {
     setSearchKey(event.target.value);
   };
 
   useEffect(() => {
-    getData();
+    getTotalPage();
   }, []);
+
+  useEffect(() => {
+    getData();
+  }, [page]);
 
   function getData() {
     const url = "/api/boardData";
     axios.get(url, {params: {searchKey: searchKey, page: page}})
     .then(function(response) {
-        console.log("성공");
+        console.log("데이터 가져오기 성공");
         const {data} = response;
         setList(data);
     })
     .catch(function(error) {
-        console.log("실패");
+        console.log("데이터 가져오기 실패");
         console.log(error);
     })
   }
 
   function getTotalPage() {
-
+    const url = "/api/totalPageCnt";
+    axios.get(url, {params: {searchKey: searchKey}})
+    .then(function(response) {
+        console.log("totalPage 가져오기 성공");
+        let pageArray = [];
+        for (let i = 0; i < response.data; i++) {
+          pageArray.push(i);
+        }
+        setTotalPage(pageArray);
+    })
+    .catch(function(error) {
+        console.log("totalPage 가져오기 실패");
+        console.log(error);
+    })
   }
 
   function searchData() {
       console.log("검색 시행");
-      getData(searchKey)
+      setPage(1);
+      getData(searchKey);
+      getTotalPage(searchKey);
   }
 /* CSS --------------------------------------------------------------- */
-  const pageNavStyle = {
-
-  }
   const insertBtnStyle = {
     display: 'inline-block',
     float: 'right'
@@ -81,7 +101,7 @@ export default function Main() {
             ))}
           </tbody>
         </table>
-        <div style={pageNavStyle}>
+        <div>
           <nav aria-label="Page navigation example">
             <ul className="pagination justify-content-center">
               <li className="page-item">
@@ -89,9 +109,11 @@ export default function Main() {
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
-              <li className="page-item"><a className="page-link" href="#">1</a></li>
-              <li className="page-item"><a className="page-link" href="#">2</a></li>
-              <li className="page-item"><a className="page-link" href="#">3</a></li>
+              <ul id="pageNum" className="pagination justify-content-center">
+                {totalPage.map((item) => (
+                  <li key={item+1} className="page-item"><a className="page-link" href="#" onClick={pageChange} value={item+1}>{item+1}</a></li>
+                ))}
+              </ul>
               <li className="page-item">
                 <a className="page-link" href="#" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>

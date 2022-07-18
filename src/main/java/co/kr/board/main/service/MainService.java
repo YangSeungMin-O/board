@@ -8,5 +8,5 @@ public interface MainService {
 
   public List<HashMap<String, Object>> getBoardData(String searchKey, int page);
 
-  public int getBoardDataCnt(String searchKey);
+  public int getTotalPage(String searchKey);
 }

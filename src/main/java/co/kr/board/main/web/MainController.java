@@ -30,9 +30,9 @@ public class MainController {
     List<HashMap<String, Object>> boardData = service.getBoardData(searchKey, page);
     return boardData;
   }
-  @GetMapping("/api/boardDataCnt")
+  @GetMapping("/api/totalPageCnt")
   public int boardDataCnt(String searchKey) {
-    int boardDataCnt = service.getBoardDataCnt(searchKey);
-    return boardDataCnt;
+    int totalPage = (int)Math.ceil(((double)service.getTotalPage(searchKey))/10);
+    return totalPage;
   }
 }

@@ -22,7 +22,7 @@ public class MainServiceImpl implements MainService {
   }
 
   @Override
-  public int getBoardDataCnt(String searchKey) {
-    return mapper.getBoardDataCnt(searchKey);
+  public int getTotalPage(String searchKey) {
+    return mapper.getTotalPage(searchKey);
   }
 }
