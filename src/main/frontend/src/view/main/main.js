@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Search } from 'react-bootstrap-icons';
 import axios from "axios";
 
 export default function Main() {
