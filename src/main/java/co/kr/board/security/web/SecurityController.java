@@ -11,17 +11,17 @@ public class SecurityController {
   public String loginPage() {
     return "loginPage.html";
   }
-
-  @GetMapping("/loginFailure")
-  public String loginFailure(String errorMessage) {
-    System.out.println(errorMessage);
-    return errorMessage;
-  }
-
   @GetMapping("/loginSuccess")
   public String loginSuccess(String token) {
     System.out.println("로그인 성공 컨트롤러");
-    System.out.println(token);
-    return "/";
+    System.out.println("로그인 성공 토큰값 = " + token);
+    return token;
+  }
+  
+  @GetMapping("/loginFailure")
+  public String loginFailure(String errorMessage) {
+    System.out.println("로그인 실패 컨트롤러");
+    System.out.println("로그인 실패 메시지 = " + errorMessage);
+    return errorMessage;
   }
 }

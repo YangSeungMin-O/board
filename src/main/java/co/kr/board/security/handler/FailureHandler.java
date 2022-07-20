@@ -15,7 +15,7 @@ public class FailureHandler implements AuthenticationFailureHandler {
   @Override
   public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
       throws IOException, ServletException {
-    System.out.println("로그인 실패");
+    System.out.println("로그인 실패 핸들러");
     String errorMessage;
 
     if(exception instanceof AuthenticationServiceException) {
@@ -38,7 +38,6 @@ public class FailureHandler implements AuthenticationFailureHandler {
     } else{
       errorMessage = "계정을 찾을 수 없습니다";
     }
-
     response.sendRedirect("/loginFailure?errorMessage=" + URLEncoder.encode(errorMessage, "UTF-8"));
   }
 }

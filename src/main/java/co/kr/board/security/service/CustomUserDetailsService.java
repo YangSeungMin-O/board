@@ -9,11 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service("customUserDetailsService")
-public class CustomUserDetailsService implements UserDetailsService, SecurityService {
-
+public class CustomUserDetailsService implements UserDetailsService {
   @Autowired
   private SecurityMapper securityMapper;
-
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     SecurityVo securityVo = securityMapper.getUserAccount(username);

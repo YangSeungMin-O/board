@@ -11,9 +11,7 @@ public class AuthorizationChecker {
     SecurityVo securityVo = new SecurityVo();
     String userUrl = request.getRequestURI().toString();
     System.out.println("요청 URL = " + userUrl);
-    if (userUrl.equals("/loginSuccess")) {
-      return true;
-    }
+    if (userUrl.equals("/loginSuccess")) { return true; }
     return false;
   }
 }

@@ -57,7 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .successHandler(new SuccessHandler())
         .failureHandler(new FailureHandler());
   }
-
   @Override
   public void configure(AuthenticationManagerBuilder auth) throws Exception {
     //String password = passwordEncoder().encode("1234");

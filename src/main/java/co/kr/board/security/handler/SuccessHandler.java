@@ -18,9 +18,9 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
       throws IOException, ServletException {
     System.out.println("로그인 성공 핸들러");
-    JwtTokenProvider jwtUtil = new JwtTokenProvider();
+    JwtTokenProvider jwtTokenProvider = new JwtTokenProvider();
     SecurityVo securityVo = (SecurityVo)authentication.getPrincipal();
-    String token = jwtUtil.createToken(securityVo.getUsername(), securityVo.getUserRole());
+    String token = jwtTokenProvider.createToken(securityVo.getUsername(), securityVo.getUserRole());
     response.sendRedirect("/loginSuccess?token=" + URLEncoder.encode(token, "UTF-8"));
   }
 }
