@@ -21,6 +21,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
     JwtTokenProvider jwtTokenProvider = new JwtTokenProvider();
     SecurityVo securityVo = (SecurityVo)authentication.getPrincipal();
     String token = jwtTokenProvider.createToken(securityVo.getUsername(), securityVo.getUserRole());
+    System.out.println("가져온토큰 = " + token);
     response.sendRedirect("/loginSuccess?token=" + URLEncoder.encode(token, "UTF-8"));
   }
 }

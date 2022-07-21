@@ -1,45 +1,40 @@
 package co.kr.board.security.config;
 
 import co.kr.board.security.service.CustomUserDetailsService;
-import co.kr.board.security.service.SecurityService;
 import co.kr.board.security.service.impl.SecurityMapper;
-import co.kr.board.security.vo.SecurityVo;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Base64;
-import java.util.Collection;
 import java.util.Date;
-import java.util.stream.Collectors;
-
-import static javax.crypto.Cipher.SECRET_KEY;
 
 @Component
 public class JwtTokenProvider {
-
-  @Autowired
-  private CustomUserDetailsService customUserDetailsService;
-
-  @Autowired
-  private SecurityMapper securityMapper;
-
+  /*@Value("${secretKey}")*/
+  private String secretKey = "jsdfgneuirvnuiefbvihbfhsdbvhjfsdbvyusekryvbfskdjfvhbsyvukrehjbsfvyuskhdbchdsj";
   public String createToken(String username, String userAuth) {
-    System.out.println(username);
-    System.out.println(userAuth);
-    return "";
-  }
+    Long expiredTime = 1000 * 60L * 60L * 2L; // 토큰 유효 시간 (2시간)
+    Date ext = new Date(); // 토큰 만료 시간
+    ext.setTime(ext.getTime() + expiredTime);
 
+    String token = Jwts.builder()
+        .claim("username", username) //토큰에 들어갈 정보 1
+        .claim("userAuth", userAuth) //토큰에 들어갈 정보2
+        .setIssuer("YangSeungMin") //토큰 생성자
+        .setSubject("Test") //토큰 용도
+        .setExpiration(ext) //토큰 만료 시간 설정
+        .signWith(SignatureAlgorithm.HS256, Base64.getEncoder().encodeToString(secretKey.getBytes())) // 알고리즘, 시크릿 키
+        .compact(); // 토큰 생성
+    return token;
+  }
 }
