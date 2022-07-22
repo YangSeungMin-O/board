@@ -11,6 +11,7 @@ import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
+  /* 메인 컨트롤러에서는 꺼내올 수 있음 */
   @Value("${secretKey}")
   private String testKey;
 
